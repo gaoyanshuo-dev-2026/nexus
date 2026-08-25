@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nexus | 员工登录</title>
+
+    <style>
+        body{
+            background: #6666cd;
+            text-align: center;
+        }
+        h1{
+            font-size: 50px;
+            font-weight: bold;
+            color: white;
+            font-family: "Bodoni MT";
+        }
+        h2{
+            font-family: sans-serif;
+            color: #ffffff;
+        }
+        footer{
+            color: rgb(0 0 0 / 0.22);
+        }
+    </style>
+</head>
+<body>
+    <form action="/reg" method="post">
+        <h2>设置用户名</h2>
+        <input type="text" name="username">
+        <h2>设置你的密码</h2>
+        <input type="password" name="password">
+        <h2>输入你的部门id</h2>
+        <input type="number" name="department">
+        <button type="submit">确定！</button>
+        <h5>你填写的部门id错误！</h5>
+    </form>
+    <h3>目前的部门状况：</h3>
+    {% for i in departments %}
+        <h2>i.{{i.name}},id:{{i.id}}</h2>
+    {% endfor %}
+</body>
+</html>

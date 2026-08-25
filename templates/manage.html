@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nexus | 管理账号</title>
+    <style>
+        body{
+            background: #6666cd;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>你公司的员工详情:</h1>
+    {% for i in users %}
+        {% if i.username != "root" %}
+            <div>
+                <!-- 将 action 指向专门处理删除的路由 -->
+                <form method="post" action="/delete_user">
+                    <h3>{{i.username}},工作在{{i.Department.name}}部门</h3>
+                    <!-- 添加隐藏字段传递用户 ID -->
+                    <input type="hidden" name="user_id" value="{{ i.id }}">
+                    <button type="submit">开除他👆</button>
+                </form>
+            </div>
+        {% endif %}
+    {% endfor %}
+</body>
+</html>

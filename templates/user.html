@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nexus | 用户</title>
+
+    <style>
+        body{
+            text-align: center;
+            background: #6666cd;
+        }
+        h1{
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    {% if not user.username == "root" %}
+        <h1>欢迎，{{user.username}}。开启元气满满的一天！</h1>
+        <a href="/index">
+            <h3>主页</h3>
+        </a>
+        <a href="/reg">
+            <h3>注册账号</h3>
+        </a>
+        <a href="/logout">
+            <h3>取消登录</h3>
+        </a>
+        <a href="/login">
+            <h3>登录其他账号</h3>
+        </a>
+    {% elif user.username == "root" %}
+        <h1>欢迎，老板，看看你的公司吧</h1>
+        <a href="/index">
+            <h3>主页</h3>
+        </a>
+        <a href="/reg">
+            <h3>注册账号</h3>
+        </a>
+        <a href="/logout">
+            <h3>取消登录</h3>
+        </a>
+        <a href="/login">
+            <h3>登录其他账号</h3>
+        </a>
+        <a href="/user/root/manage">
+            <h3>管理你的员工</h3>
+        </a>
+        {% endif %}
+</body>
+</html>

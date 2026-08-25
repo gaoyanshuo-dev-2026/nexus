@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Nexus | AI</title>
+
+    <style>
+        body{
+            text-align: center;
+            background: #6666cd;
+            color: white;
+            font-family: sans-serif;
+        }
+        input {
+            padding: 8px;
+            width: 300px;
+            border-radius: 5px;
+            border: none;
+        }
+        button {
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        #response-area {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #fff;
+            background: rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            display: none; /* 默认隐藏 */
+        }
+    </style>
+</head>
+<body>
+    <h1>欢迎使用Nexus AI！</h1>
+    
+    <!-- 注意：这里去掉了 action 和 method，因为我们用 JS 拦截提交 -->
+    <form id="ai-form">
+        <h2>输入问题吧：</h2>
+        <!-- 注意：这里的 id 是 js 获取值用的，name 已经不重要了 -->
+        <input type="text" id="user-input" placeholder="请输入你的问题...">
+        <button type="submit">OK!</button>
+    </form>
+    
+    <!-- 用来显示 AI 回答的区域 -->
+    <div id="response-area"></div>
+
+    <script>
+        // 获取表单元素
+        const form = document.getElementById('ai-form');
+        const inputField = document.getElementById('user-input');
+        const responseArea = document.getElementById('response-area');
+
+        // 监听表单的提交事件
+        form.addEventListener('submit', async function(event) {
+            // 阻止表单默认的刷新页面提交行为
+            event.preventDefault(); 
+
+            const userInput = inputField.value;
+            if (!userInput.trim()) {
+                alert("请输入内容！");
+                return;
+            }
+
+            // 显示加载状态
+            responseArea.style.display = 'block';
+            responseArea.innerText = "AI 正在思考中...";
+
+            try {
+                // 发送 POST 请求到后端的新接口 /api/ai
+                const response = await fetch('/api/ai', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json' // 告诉后端我们发的是 JSON
+                    },
+                    body: JSON.stringify({ text: userInput }) // 把数据打包成 JSON 格式
+                });
+
+                // 获取后端返回的 JSON 数据
+                const data = await response.json();
+
+                if (response.ok) {
+                    // 成功获取到回答
+                    responseArea.innerText = data.response;
+                } else {
+                    // 后端返回了错误（比如 400 错误）
+                    responseArea.innerText = "出错了：" + data.error;
+                }
+
+            } catch (error) {
+                // 网络错误等异常情况
+                console.error('请求失败:', error);
+                responseArea.innerText = "网络请求失败，请检查后端是否正常运行。";
+            }
+        });
+    </script>
+</body>
+</html>

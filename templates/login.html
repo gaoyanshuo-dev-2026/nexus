@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nexus | 员工登录</title>
+
+    <style>
+        body{
+            background: #6666cd;
+            text-align: center;
+        }
+        h1{
+            font-size: 50px;
+            font-weight: bold;
+            color: white;
+            font-family: "Bodoni MT";
+        }
+        h2{
+            font-family: sans-serif;
+            color: #ffffff;
+        }
+        h3{
+            color: white;
+        }
+        footer{
+            color: rgb(0 0 0 / 0.22);
+        }
+    </style>
+</head>
+<body>
+    <form action="/login" method="post">
+        <h2>输入用户名</h2>
+        <input type="text" name="username">
+        <h2>输入密码</h2>
+        <input type="password" name="password">
+        <button type="submit">确定！</button>
+    </form>
+
+    <a href="reg">
+        <h3>没有账号？立即注册</h3>
+    </a>
+</body>
+</html>
